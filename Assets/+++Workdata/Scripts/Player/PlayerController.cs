@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,11 +13,13 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float sprintSpeed = 9f;
 
+    [SerializeField] private float climbSpeed = 3f;
+
     [SerializeField] private float speedChangeRate = 10f;
 
     [SerializeField] private float jumpPower = 15f;
 
-    [SerializeField] private float wallSlidingSpeed = 1f;
+    [SerializeField] private float wallSlidingSpeed = 4f;
 
     [Header("GroundCheck")]
     [SerializeField] private Vector3 groundCheckPos;
@@ -51,6 +54,10 @@ public class PlayerController : MonoBehaviour
 
     private SpriteRenderer sr;
 
+    private BoxCollider2D col;
+
+    private GameObject currentOneWayPlatform;
+
     public bool isRunning, isInteracting, isJumping, isWallSliding, isDying, leftMovement;
     public bool isGrounded, isWalled;
     public bool ledgeDetected, canClimb;
@@ -75,6 +82,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+        col = GetComponent<BoxCollider2D>();
 
         inputActions = new GameInput();
         moveAction = inputActions.Player.Move;
@@ -111,11 +119,6 @@ public class PlayerController : MonoBehaviour
     private void LateUpdate()
     {
         
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-
     }
 
     private void WallSlide()
@@ -202,6 +205,35 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+    #region Collision Functions
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("OneWayPlatform"))
+        {
+            currentOneWayPlatform = collision.gameObject;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("OneWayPlatform"))
+        {
+            currentOneWayPlatform = null;
+        }
+    }
+
+    private IEnumerator DisableCollision()
+    {
+        BoxCollider2D platformCollider = currentOneWayPlatform.GetComponent<BoxCollider2D>();
+
+        Physics2D.IgnoreCollision(this.col, platformCollider);
+        yield return new WaitForSeconds(0.25f);
+        Physics2D.IgnoreCollision(this.col, platformCollider, false);
+    }
+
+    #endregion
+
     #region Input CallbackContext Methods
 
     void Run(InputAction.CallbackContext context)
@@ -254,7 +286,20 @@ public class PlayerController : MonoBehaviour
 
         directionMultiply = leftMovement ? -1 : 1;
 
-        rb.velocity = new Vector2(currentSpeed * directionMultiply, rb.velocity.y);
+        if((moveInput.y < 0) && (currentOneWayPlatform != null))
+        {
+            StartCoroutine(DisableCollision());
+        }
+
+        if (!isWalled)
+        {
+            rb.velocity = new Vector2(currentSpeed * directionMultiply, rb.velocity.y);
+        }
+        else if ((isWalled) && (currentOneWayPlatform = null))
+        {
+            rb.velocity = new Vector2(currentSpeed * directionMultiply, climbSpeed * moveInput.y); ;
+        }
+        
 
         lastMovement.x = currentSpeed;
     }
