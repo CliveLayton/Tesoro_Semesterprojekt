@@ -1,11 +1,21 @@
+using Cinemachine;
+using FMOD.Studio;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    public enum State
+    {
+        Blob,
+        Figure
+    }
+
     #region Inspector
 
     [Header("Movement")]
@@ -26,6 +36,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 groundCheckSize;
 
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask enemyLayer;
 
     [SerializeField] private Vector3 wallCheckPos;
     [SerializeField] private Vector2 wallCheckSize;
@@ -35,7 +46,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 offset2;
     [SerializeField] private Vector2 offset3;
 
-    public Sprite change;
+    public CinemachineVirtualCamera cam;
+
+    public LogicScript logic;
+
+    public bool isChanging;
 
     #endregion
 
@@ -48,19 +63,21 @@ public class PlayerController : MonoBehaviour
 
     #region Private Variables
 
+    public State state;
+
     private Rigidbody2D rb;
 
     private Animator anim;
 
     private SpriteRenderer sr;
 
-    private BoxCollider2D col;
+    private CapsuleCollider2D col;
 
     private GameObject currentOneWayPlatform;
 
     public bool isRunning, isInteracting, isJumping, isWallSliding, isDying, leftMovement;
-    public bool isGrounded, isWalled;
-    public bool ledgeDetected, canClimb;
+    public bool isGrounded, isWalled, isKilling;
+    public bool ledgeDetected, canClimbLedge, canClimbWall;
     private bool canGrabLedge = true;
 
     private Vector2 climbBegunPosition;
@@ -73,6 +90,8 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 moveInput;
 
+    private EventInstance playerFootsteps;
+
     #endregion
 
     #region Unity Event Functions
@@ -82,15 +101,17 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
-        col = GetComponent<BoxCollider2D>();
+        col = GetComponent<CapsuleCollider2D>();
+        logic = GameObject.FindGameObjectWithTag("Counter").GetComponent<LogicScript>();
 
         inputActions = new GameInput();
         moveAction = inputActions.Player.Move;
+        state = State.Blob;
     }
 
     private void Start()
     {
-        
+        playerFootsteps = AudioManager.instance.CreateEventInstance(FMODEvents.instance.playerFootsteps);
     }
 
     private void Update()
@@ -100,30 +121,44 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        switch (state)
+        {
+            case State.Blob:
+                break;
+            case State.Figure:
+                CheckForLedge();
+                WallSlide();
+                break;
+        }
+
         isGrounded = Physics2D.OverlapBox(transform.position + groundCheckPos, groundCheckSize, 0, groundLayer);
-        isWalled = Physics2D.OverlapBox(transform.position + wallCheckPos, wallCheckSize, 0, groundLayer);
+
+        if(canClimbWall)
+            isWalled = Physics2D.OverlapBox(transform.position + wallCheckPos, wallCheckSize, 0, groundLayer);
+
+        isKilling = Physics2D.OverlapBox(transform.position + groundCheckPos, groundCheckSize, 0, enemyLayer);
+
+        UpdateSound();
 
         if (DialogueManager.GetInstance().dialogueIsPlaying)
         {
             return;
         }
 
-        if(!canClimb && !isDying)
+        if (!canClimbLedge && !isDying)
         {
             Movement();
         }
-        CheckForLedge();
-        WallSlide();
     }
 
     private void LateUpdate()
     {
-        
+        UpdateAnimator();
     }
 
     private void WallSlide()
     {
-        if (isWalled && !isGrounded && !canClimb && moveInput.x != 0f)
+        if (isWalled && !isGrounded && !canClimbLedge && moveInput.x != 0f)
         {
             isWallSliding = true;
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
@@ -155,10 +190,10 @@ public class PlayerController : MonoBehaviour
             }
             */
 
-            canClimb = true;
+            canClimbLedge = true;
         }
 
-        if (canClimb)
+        if (canClimbLedge)
         {
             rb.velocity = new Vector2(0, 0);
             transform.position = climbBegunPosition;
@@ -167,7 +202,7 @@ public class PlayerController : MonoBehaviour
 
     public void LedgeClimbOver()
     {
-        canClimb = false;
+        canClimbLedge = false;
         transform.position = climbOverPosition;
         Invoke("AllowLedgeGrab", 0.1f);
     }
@@ -177,8 +212,47 @@ public class PlayerController : MonoBehaviour
         canGrabLedge = true;
     }
 
+    private IEnumerator Dying()
+    {
+        yield return new WaitForSeconds(0.3f);
+        switch (state)
+        {
+            case State.Blob:
+                anim.SetTrigger("BlobDying");
+                break;
+            case State.Figure:
+                anim.SetTrigger("FigureDying");
+                break;
+        }
+        isDying = true;
+        StartCoroutine(GameOver());
+    }
+
+    private IEnumerator GameOver()
+    {
+        switch (state)
+        {
+            case State.Blob:
+                break;
+            case State.Figure:
+                cam.Follow = null;
+                col.enabled = false;
+                break;
+        }
+        yield return new WaitForSeconds(0.8f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     private void OnEnable()
     {
+        switch (state)
+        {
+            case State.Blob:
+                break;
+            case State.Figure:
+                anim.SetTrigger("setState");
+                break;
+        }
         inputActions.Enable();
         inputActions.Player.Sprint.performed += Run;
         inputActions.Player.Sprint.canceled += Run;
@@ -192,6 +266,8 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
+        playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
+
         inputActions.Disable();
         inputActions.Player.Sprint.performed -= Run;
         inputActions.Player.Sprint.canceled -= Run;
@@ -212,6 +288,36 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("OneWayPlatform"))
         {
             currentOneWayPlatform = collision.gameObject;
+        }
+
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            if (!isKilling)
+            {
+                switch (state)
+                {
+                    case State.Blob:
+                        anim.SetTrigger("BlobGetHurt");
+                        break;
+                    case State.Figure:
+                        anim.SetTrigger("FigureGetHurt");
+                        break;
+                }
+
+                logic.ReduceScore(1);
+
+                if (logic.lifePoints <= 0)
+                {
+                    isDying = true;
+                    StartCoroutine(Dying());
+                }
+
+            } 
+            else if (isKilling)
+            {
+                collision.gameObject.GetComponent<TestingEnemy>().DestroyEnemy();
+            }
+           
         }
     }
 
@@ -248,10 +354,31 @@ public class PlayerController : MonoBehaviour
 
     void Jump(InputAction.CallbackContext context)
     {
-        if(context.performed && isGrounded && !isDying)
+        switch (state)
         {
-            rb.AddForce(new Vector2(0, jumpPower), ForceMode2D.Impulse);
+            case State.Blob:
+                if (context.performed && isGrounded && !isDying)
+                {
+                    isJumping = true;
+                    anim.SetTrigger("BlobHoldJump");
+                }
+
+                if (context.canceled && isGrounded && !isDying && isJumping)
+                {
+                    rb.AddForce(new Vector2(rb.velocity.x, jumpPower), ForceMode2D.Impulse);
+                    anim.SetTrigger("BlobJump");
+                    isJumping = false;
+                }
+                break;
+            case State.Figure:
+                if (context.performed && isGrounded && !isDying)
+                {
+                    rb.AddForce(new Vector2(rb.velocity.x, jumpPower), ForceMode2D.Impulse);
+                    anim.SetTrigger("FigureJump");
+                }
+                break;
         }
+        //rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
     }
 
     #endregion
@@ -275,33 +402,35 @@ public class PlayerController : MonoBehaviour
 
         if(moveInput.x > 0)
         {
-            transform.eulerAngles = new Vector3(0, 0, 0);
+            sr.flipX = false;
             leftMovement = false;
         }
         else if (moveInput.x < 0)
         {
-            transform.eulerAngles = new Vector3(0, 180, 0);
+            sr.flipX = true;
             leftMovement = true;
         }
 
         directionMultiply = leftMovement ? -1 : 1;
+        wallCheckPos.x = leftMovement ? -0.5f : 0.5f;
 
         if((moveInput.y < 0) && (currentOneWayPlatform != null))
         {
             StartCoroutine(DisableCollision());
         }
 
-        if (!isWalled)
+
+        if (isWalled && currentOneWayPlatform == null)
+        {
+            rb.velocity = new Vector2(moveInput.x, climbSpeed * moveInput.y); ;
+        }
+        else
         {
             rb.velocity = new Vector2(currentSpeed * directionMultiply, rb.velocity.y);
         }
-        else if ((isWalled) && (currentOneWayPlatform = null))
-        {
-            rb.velocity = new Vector2(currentSpeed * directionMultiply, climbSpeed * moveInput.y); ;
-        }
+        lastMovement.x = currentSpeed;
         
 
-        lastMovement.x = currentSpeed;
     }
 
     #endregion
@@ -313,21 +442,60 @@ public class PlayerController : MonoBehaviour
         Vector2 velocity = lastMovement;
         velocity.y = 0;
         float speed = velocity.magnitude;
+
+        anim.SetBool("isGrounded", isGrounded);
+        anim.SetFloat("MovementSpeed", speed);
+        anim.SetBool("canClimb", canClimbLedge);
+        if (rb.velocity.y < -1)
+        {
+            anim.SetBool("fall", true);
+        }
+        else
+        {
+            anim.SetBool("fall", false);
+        }
     }
 
-    public void EndDying()
+    public void Change()
     {
-        isDying = false;
-    }
-
-    public void ChangeSprite()
-    {
-        sr.sprite = change;
+        switch (state)
+        {
+            case State.Blob: //Change it to State Figure
+                anim.SetTrigger("setState");
+                canClimbWall = true;
+                state = State.Figure;
+                break;
+            case State.Figure: // Change it to State Blob
+                canClimbWall = false;
+                state = State.Blob;
+                break;
+        }
+        anim.SetTrigger("change");
     }
 
     #endregion
 
     #region Sound
+
+    private void UpdateSound()
+    {
+        //start footsteps event if the player has an x velocity and is on the ground
+        if(rb.velocity.x !=0 && isGrounded)
+        {
+            //get the playback state
+            PLAYBACK_STATE playbackState;
+            playerFootsteps.getPlaybackState(out playbackState);
+            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+            {
+                playerFootsteps.start();
+            }
+        }
+        //otherwise, stop the footsteps event
+        else
+        {
+            playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
+        }
+    }
 
     #endregion
 

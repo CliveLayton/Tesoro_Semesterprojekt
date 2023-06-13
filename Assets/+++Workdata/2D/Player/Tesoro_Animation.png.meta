@@ -1,0 +1,651 @@
+fileFormatVersion: 2
+guid: 8ae5798f87b259d4ca543fff46e09ff9
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Tesoro_Animation_0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 1927
+        width: 49
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41da352c41120f54fbf6c2387f49b132
+      internalID: 2140336852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_1
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 1927
+        width: 47
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c834f90b5aba7ed43bdd0aea59132187
+      internalID: 2143823051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_2
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 1927
+        width: 47
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae33cfee58cd2ed4fb6641f1e60d6b2b
+      internalID: -392790950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_3
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 1927
+        width: 47
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82f0dbac9ddd3ca449d61d7551451ff2
+      internalID: -2108810912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_4
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 1749
+        width: 58
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 633fce9a33c65e740a623774c966a2e5
+      internalID: -1832557207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_5
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 1749
+        width: 57
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b168d990921afc2489141ba3f47cc7ba
+      internalID: -998444575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_6
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 1746
+        width: 58
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9fe340d529a70b48be8d4cc54b4b94d
+      internalID: 1658931271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_18
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 1747
+        width: 50
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e9126180dab05a4f9ff7ad23cf9811b
+      internalID: 103951859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_19
+      rect:
+        serializedVersion: 2
+        x: 629
+        y: 1750
+        width: 54
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 590b67da6f06dd148b51ed3a1bb488a5
+      internalID: -579480426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_20
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 1746
+        width: 49
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2bd7358e8e40a864cb15c03b55079cce
+      internalID: -1040065189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_21
+      rect:
+        serializedVersion: 2
+        x: 801
+        y: 1749
+        width: 49
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63103e1d35183394f861e8f9e36c9b9b
+      internalID: -968323728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_57
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 1598
+        width: 49
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca0491d527db43e4cbebb138eaf6936a
+      internalID: -766709012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_58
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 1597
+        width: 47
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5630b9c6b9385b4a9b243dc1687286f
+      internalID: -1426867901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_59
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 1600
+        width: 47
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da4b9f031db4f354987b88e3501beac2
+      internalID: 1550120440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_60
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 1600
+        width: 48
+        height: 61
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e2fbca38cf329e46afb1311849afd69
+      internalID: 1762075049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_61
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 1601
+        width: 48
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a8436ea2b5b4004594cf1128698619d
+      internalID: 2015134674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_62
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 1604
+        width: 49
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2b94a35aee9d274982fa4ffca953e83
+      internalID: 1856280388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_63
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 1607
+        width: 50
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae1e2adfd3bfc224d99a6ffd5f04f460
+      internalID: -1501740029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_64
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 1606
+        width: 51
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54457ad230bdb1941bbccc5f09098e2f
+      internalID: -1696148033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_7
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 1749
+        width: 59
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64b791174e913624bbef82d57b29f096
+      internalID: -2030079438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_8
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 1744
+        width: 52
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4944c0ce88903f94882f2b6fe4194d1d
+      internalID: -155107766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tesoro_Animation_9
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 1739
+        width: 54
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7950d64b1eedc744bb0c84929070547a
+      internalID: 1844831020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Tesoro_Animation_0: 2140336852
+      Tesoro_Animation_1: 2143823051
+      Tesoro_Animation_10: -894251767
+      Tesoro_Animation_11: -1961767556
+      Tesoro_Animation_12: 1667556776
+      Tesoro_Animation_13: -2021890932
+      Tesoro_Animation_14: 200186061
+      Tesoro_Animation_15: -640508935
+      Tesoro_Animation_16: -1639098495
+      Tesoro_Animation_17: 1396312334
+      Tesoro_Animation_18: 103951859
+      Tesoro_Animation_19: -579480426
+      Tesoro_Animation_2: -392790950
+      Tesoro_Animation_20: -1040065189
+      Tesoro_Animation_21: -968323728
+      Tesoro_Animation_22: 1628578047
+      Tesoro_Animation_23: 1579516250
+      Tesoro_Animation_24: 1507530908
+      Tesoro_Animation_25: 270026949
+      Tesoro_Animation_26: -77907341
+      Tesoro_Animation_27: 2020178481
+      Tesoro_Animation_28: -772668527
+      Tesoro_Animation_29: 2064526643
+      Tesoro_Animation_3: -2108810912
+      Tesoro_Animation_30: 231078641
+      Tesoro_Animation_31: 52193886
+      Tesoro_Animation_32: -450415041
+      Tesoro_Animation_33: 1016375388
+      Tesoro_Animation_34: -1290339523
+      Tesoro_Animation_35: 1258129096
+      Tesoro_Animation_36: 1088365870
+      Tesoro_Animation_37: 529443254
+      Tesoro_Animation_38: 1300866700
+      Tesoro_Animation_39: 1222451684
+      Tesoro_Animation_4: -1832557207
+      Tesoro_Animation_40: 1358746242
+      Tesoro_Animation_41: -2043806818
+      Tesoro_Animation_42: -2094826979
+      Tesoro_Animation_43: 627396016
+      Tesoro_Animation_44: 382647751
+      Tesoro_Animation_45: -1693876501
+      Tesoro_Animation_46: -1144199847
+      Tesoro_Animation_47: 1011453571
+      Tesoro_Animation_48: 463264732
+      Tesoro_Animation_49: 634340079
+      Tesoro_Animation_5: -998444575
+      Tesoro_Animation_50: 113467593
+      Tesoro_Animation_51: 1538313402
+      Tesoro_Animation_52: 138940037
+      Tesoro_Animation_53: 376079878
+      Tesoro_Animation_54: -678831016
+      Tesoro_Animation_55: 164875604
+      Tesoro_Animation_56: -1675522644
+      Tesoro_Animation_57: -766709012
+      Tesoro_Animation_58: -1426867901
+      Tesoro_Animation_59: 1550120440
+      Tesoro_Animation_6: 1658931271
+      Tesoro_Animation_60: 1762075049
+      Tesoro_Animation_61: 2015134674
+      Tesoro_Animation_62: 1856280388
+      Tesoro_Animation_63: -1501740029
+      Tesoro_Animation_64: -1696148033
+      Tesoro_Animation_7: -2030079438
+      Tesoro_Animation_8: -155107766
+      Tesoro_Animation_9: 1844831020
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

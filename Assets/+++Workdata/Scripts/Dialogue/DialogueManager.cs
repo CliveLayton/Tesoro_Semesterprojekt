@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.InputSystem;
 using System.Xml.Serialization;
+using System.Runtime.CompilerServices;
 
 public class DialogueManager : MonoBehaviour
 {
