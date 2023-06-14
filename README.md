@@ -1,6 +1,5 @@
 # Tesoro_2.Semesterprojekt
-Miau²
- 
+
 Unity Version: 2022.2.19f1
 
 FMOD Package: https://assetstore.unity.com/packages/tools/audio/fmod-for-unity-161631
