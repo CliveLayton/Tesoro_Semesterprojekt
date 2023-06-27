@@ -208,6 +208,11 @@ public class PlayerController : MonoBehaviour
     public bool changeCooldown;
 
     /// <summary>
+    /// bool for checking if the player is in a sequence
+    /// </summary>
+    public bool inSequence;
+
+    /// <summary>
     /// bool for player is grounded
     /// </summary>
     public bool isGrounded;
@@ -375,7 +380,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (!canClimbLedge && !isDying)
+        if (!canClimbLedge && !isDying && !inSequence)
         {
             Movement();
         }
@@ -514,6 +519,27 @@ public class PlayerController : MonoBehaviour
         jumpCooldown = true;
         yield return new WaitForSeconds(0.4f);
         jumpCooldown = false;
+    }
+
+    /// <summary>
+    /// sets inSequence to true and stops the player movement
+    /// </summary>
+    public void EnterSequence()
+    {
+        inSequence = true;
+        rb.velocity = new Vector2(0, 0);
+        lastMovement = new Vector2(0, 0);
+        StartCoroutine(ExitSequence());
+    }
+
+    /// <summary>
+    /// wait for 2 seconds and set inSequence to false
+    /// </summary>
+    /// <returns>wait for 2 seconds</returns>
+    private IEnumerator ExitSequence()
+    {
+        yield return new WaitForSeconds(2f);
+        inSequence = false;
     }
 
     /// <summary>

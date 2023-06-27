@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6178e0e27ed58a2459188d619e41607c
+guid: 4c1e392092264054297ebde0c8ff1c36
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -107,12 +107,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: groer_Baum_0
+      name: groer_Baum_ohne_Aste_0
       rect:
         serializedVersion: 2
-        x: 80
-        y: 217
-        width: 765
+        x: 172
+        y: 140
+        width: 756
         height: 772
       alignment: 7
       pivot: {x: 0.5, y: 0}
@@ -121,8 +121,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd253676d1d909849b5b55bc7057f0cd
-      internalID: -455775117
+      spriteID: 5ed5ca5427644394ca1173dbe031b5b6
+      internalID: 1104167889
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      groer_Baum_0: -455775117
+      groer_Baum_ohne_Aste_0: 1104167889
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
