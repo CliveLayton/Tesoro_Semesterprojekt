@@ -1,0 +1,387 @@
+fileFormatVersion: 2
+guid: da16dae642f2f234aa1c954f866fb713
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Verwandlung_Tesoro_0
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 0
+        width: 58
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c355c361d02299d4aa7927ef947efd7b
+      internalID: -2007017166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Verwandlung_Tesoro_1
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 1
+        width: 58
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61f6b009167020f4787493759386c8b6
+      internalID: 74961117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Verwandlung_Tesoro_2
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 0
+        width: 58
+        height: 59
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e54cee6d8ea48840a5be8db9b264d14
+      internalID: -601672574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Verwandlung_Tesoro_11
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 0
+        width: 50
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83bd548a752651544a13d99dffbe473b
+      internalID: 198111044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Verwandlung_Tesoro_12
+      rect:
+        serializedVersion: 2
+        x: 667
+        y: 0
+        width: 54
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1aa47d076d3bc4248a908696c8303c9b
+      internalID: -979434201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Verwandlung_Tesoro_13
+      rect:
+        serializedVersion: 2
+        x: 757
+        y: 0
+        width: 49
+        height: 62
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f1482749cc5c264da170a8c13fcd2a9
+      internalID: 557161433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Verwandlung_Tesoro_14
+      rect:
+        serializedVersion: 2
+        x: 839
+        y: 0
+        width: 49
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afa2b45c7e30b0c4b821a2d3cd9221c5
+      internalID: -2070430898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Verwandlung_Tesoro_3
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 0
+        width: 59
+        height: 60
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 326cf274a6980ed4fb25267ead7ccce7
+      internalID: -1194605276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Verwandlung_Tesoro_4
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 0
+        width: 52
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7747903bb7721a64d98b16828eb67aa1
+      internalID: 1656402081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Verwandlung_Tesoro_5
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 0
+        width: 54
+        height: 63
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16cb6d2475033614eaf6e3387be901b6
+      internalID: -601926629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Verwandlung_Tesoro_0: -2007017166
+      Verwandlung_Tesoro_1: 74961117
+      Verwandlung_Tesoro_10: -942062056
+      Verwandlung_Tesoro_11: 198111044
+      Verwandlung_Tesoro_12: -979434201
+      Verwandlung_Tesoro_13: 557161433
+      Verwandlung_Tesoro_14: -2070430898
+      Verwandlung_Tesoro_15: -592949585
+      Verwandlung_Tesoro_16: 1209868278
+      Verwandlung_Tesoro_17: -1165099758
+      Verwandlung_Tesoro_18: -204795607
+      Verwandlung_Tesoro_19: 1596458484
+      Verwandlung_Tesoro_2: -601672574
+      Verwandlung_Tesoro_20: -1386146983
+      Verwandlung_Tesoro_21: 1626823517
+      Verwandlung_Tesoro_22: 822289560
+      Verwandlung_Tesoro_23: 1042024334
+      Verwandlung_Tesoro_24: -207281859
+      Verwandlung_Tesoro_25: -1679740389
+      Verwandlung_Tesoro_26: -2085272784
+      Verwandlung_Tesoro_27: -518973600
+      Verwandlung_Tesoro_28: 1460871659
+      Verwandlung_Tesoro_29: 1761600545
+      Verwandlung_Tesoro_3: -1194605276
+      Verwandlung_Tesoro_30: 228544650
+      Verwandlung_Tesoro_31: -1410806868
+      Verwandlung_Tesoro_32: -239820346
+      Verwandlung_Tesoro_33: 1919838820
+      Verwandlung_Tesoro_34: 1416698848
+      Verwandlung_Tesoro_35: 1973555875
+      Verwandlung_Tesoro_36: 1734024193
+      Verwandlung_Tesoro_37: 37560801
+      Verwandlung_Tesoro_38: -1045165339
+      Verwandlung_Tesoro_39: -2092357701
+      Verwandlung_Tesoro_4: 1656402081
+      Verwandlung_Tesoro_40: 2048955807
+      Verwandlung_Tesoro_41: 1215956195
+      Verwandlung_Tesoro_42: 997270446
+      Verwandlung_Tesoro_43: 2076936251
+      Verwandlung_Tesoro_44: 908913146
+      Verwandlung_Tesoro_45: -831465699
+      Verwandlung_Tesoro_46: -1231749961
+      Verwandlung_Tesoro_47: -1001213293
+      Verwandlung_Tesoro_48: -149963009
+      Verwandlung_Tesoro_49: -95000208
+      Verwandlung_Tesoro_5: -601926629
+      Verwandlung_Tesoro_50: 1905160407
+      Verwandlung_Tesoro_51: -605345624
+      Verwandlung_Tesoro_52: 1303703148
+      Verwandlung_Tesoro_6: 498236016
+      Verwandlung_Tesoro_7: -395592241
+      Verwandlung_Tesoro_8: -1430819962
+      Verwandlung_Tesoro_9: 337492640
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

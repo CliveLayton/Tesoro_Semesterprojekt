@@ -65,6 +65,13 @@ MonoBehaviour:
       Data3: 556600252
       Data4: -1005609260
     Path: event:/SFX/Player/PlayerFootsteps
+  <blobJump>k__BackingField:
+    Guid:
+      Data1: -854137418
+      Data2: 1226657535
+      Data3: -2040127851
+      Data4: -1603716621
+    Path: event:/SFX/Player/BlobJump
   <enemyGetHit>k__BackingField:
     Guid:
       Data1: 958397459
@@ -79,6 +86,13 @@ MonoBehaviour:
       Data3: -272710474
       Data4: 708851671
     Path: event:/SFX/Enemy/EnemyFootsteps
+  <startGameSound>k__BackingField:
+    Guid:
+      Data1: 1153298829
+      Data2: 1292905371
+      Data3: -1302627651
+      Data4: 1108096677
+    Path: event:/SFX/UI/GameStart
 --- !u!1 &2610092279973239287
 GameObject:
   m_ObjectHideFlags: 0

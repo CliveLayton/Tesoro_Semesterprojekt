@@ -6,12 +6,29 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    /// <summary>
+    /// Game Input Asset
+    /// </summary>
     private GameInput inputActions;
 
+    /// <summary>
+    /// pause menu object
+    /// </summary>
     public GameObject pauseMenu;
+
+    /// <summary>
+    /// option menu object
+    /// </summary>
     public GameObject optionMenu;
+
+    /// <summary>
+    /// player object
+    /// </summary>
     public GameObject player;
 
+    /// <summary>
+    /// set the timescale of the scene to 1 and disable pause menu
+    /// </summary>
     private void Awake()
     {
         inputActions = new GameInput();
@@ -19,17 +36,27 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    /// <summary>
+    /// set the timesclae of the scene to 1 and enable the player
+    /// </summary>
     public void ResumeGame()
     {
         Time.timeScale = 1f;
         player.SetActive(true);
     }
 
+    /// <summary>
+    /// set the time scale back to 1 and load main menu
+    /// </summary>
     public void QuitGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        Time.timeScale = 1f;
     }
 
+    /// <summary>
+    /// enable input actions for the pause menu
+    /// </summary>
     private void OnEnable()
     {
         inputActions.Enable();
@@ -38,6 +65,9 @@ public class PauseMenu : MonoBehaviour
         inputActions.UI.PauseGame.canceled += PauseGame;
     }
 
+    /// <summary>
+    /// disable input actions for the pause menu
+    /// </summary>
     private void OnDisable()
     {
         inputActions.Disable();
@@ -46,6 +76,11 @@ public class PauseMenu : MonoBehaviour
         inputActions.UI.PauseGame.canceled -= PauseGame;
     }
 
+    /// <summary>
+    /// set time scale to 0, disable player and enable pause menu if pressing pause button
+    /// set time scale to 1, enable player and disable pause menu if pressing pause button and pause menu is already active
+    /// </summary>
+    /// <param name="context"></param>
     void PauseGame(InputAction.CallbackContext context)
     {
         if(context.performed && (pauseMenu.activeSelf == false))

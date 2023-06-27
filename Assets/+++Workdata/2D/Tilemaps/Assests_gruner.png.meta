@@ -1,0 +1,656 @@
+fileFormatVersion: 2
+guid: bde6aed0b98668747810427704ca63bc
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Assests_gruner_0
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 884
+        width: 64
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9729467cd6e68d43ac26bd7413af036
+      internalID: 306681422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_1
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 781
+        width: 200
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58f3fa640d8048d489af64413fbcdcb3
+      internalID: 1953367538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_2
+      rect:
+        serializedVersion: 2
+        x: 597
+        y: 773
+        width: 58
+        height: 192
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf21a0cb3530bba478d498ff0c14291c
+      internalID: -552641793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_3
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 858
+        width: 174
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56364cf5e9861664ba91386adc2ccedb
+      internalID: -1385760523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_4
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 818
+        width: 65
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76c9b041c2c58c541bf5966da44266ab
+      internalID: 672421016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_5
+      rect:
+        serializedVersion: 2
+        x: 730
+        y: 763
+        width: 192
+        height: 59
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f01fc92c6ee6bf47b8441747bab47d7
+      internalID: -1142162389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_6
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 691
+        width: 163
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b74f8a8f71a82ed4199e60c92671d45a
+      internalID: 1179504807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_7
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 659
+        width: 90
+        height: 62
+      alignment: 9
+      pivot: {x: 0.5, y: 0.53225803}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40811b8c2273d1a42a92b89c199198af
+      internalID: 1814712349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_8
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 594
+        width: 164
+        height: 64
+      alignment: 9
+      pivot: {x: 0.49999997, y: 0.53125}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc87b75e16b499241a1d754ae288fc1d
+      internalID: 811980709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_9
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 655
+        width: 162
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32a79e8f1ee413142b655bccb86c6276
+      internalID: 340655271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_10
+      rect:
+        serializedVersion: 2
+        x: 292
+        y: 547
+        width: 96
+        height: 79
+      alignment: 9
+      pivot: {x: 0.5, y: 0.45569623}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bac43125f25c1444986f1abce00c247
+      internalID: -1383896928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_11
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 571
+        width: 186
+        height: 42
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e83f51cb9dee63e40a6075222da31751
+      internalID: -666929291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_12
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 596
+        width: 43
+        height: 30
+      alignment: 9
+      pivot: {x: 0.4883721, y: 1.0666667}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abab270f7eb8db84fb434e404f103e79
+      internalID: 180012066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_13
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 594
+        width: 43
+        height: 30
+      alignment: 9
+      pivot: {x: 0.5116279, y: 1.0666667}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79a5039d75d28c54d96f6171507fa352
+      internalID: -527137768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_14
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 597
+        width: 27
+        height: 25
+      alignment: 9
+      pivot: {x: 0.5185185, y: 1.28}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa16764068d36394bbd86a22774e7478
+      internalID: -1827282011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_15
+      rect:
+        serializedVersion: 2
+        x: 843
+        y: 597
+        width: 31
+        height: 25
+      alignment: 9
+      pivot: {x: 0.48387095, y: 1.28}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f517c76ea2075a24ea302ce31a47bedd
+      internalID: 745569710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_16
+      rect:
+        serializedVersion: 2
+        x: 886
+        y: 598
+        width: 64
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6776362f3a60e5341936c00166fc505f
+      internalID: -1881091090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_17
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 284
+        width: 217
+        height: 265
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca9c794b6c5367b4e86c673c081d57c9
+      internalID: -445900532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_18
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 484
+        width: 60
+        height: 65
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0543fc3c44fa2e43951e6f4809bc10b
+      internalID: -461698324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_19
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 484
+        width: 63
+        height: 56
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 361c27dfc65eb9a47b69a77e57d0f5e6
+      internalID: -534609267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_22
+      rect:
+        serializedVersion: 2
+        x: 784
+        y: 466
+        width: 101
+        height: 92
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64e485b1801b95b49b6d07223b2c35ca
+      internalID: 741378616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_23
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 394
+        width: 61
+        height: 60
+      alignment: 9
+      pivot: {x: 0.49180326, y: 0.70000005}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8dbdd0ae1aeace949a53fa30ad3ed35f
+      internalID: -361652890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_24
+      rect:
+        serializedVersion: 2
+        x: 487
+        y: 430
+        width: 58
+        height: 61
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57c06b0e87033674fbdf856daebffd21
+      internalID: -1523173848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_25
+      rect:
+        serializedVersion: 2
+        x: 382
+        y: 233
+        width: 111
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48b51b9fd5a95544b8c742dce4107d28
+      internalID: -2078708984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Assests_gruner_0: 306681422
+      Assests_gruner_1: 1953367538
+      Assests_gruner_10: -1383896928
+      Assests_gruner_11: -666929291
+      Assests_gruner_12: 180012066
+      Assests_gruner_13: -527137768
+      Assests_gruner_14: -1827282011
+      Assests_gruner_15: 745569710
+      Assests_gruner_16: -1881091090
+      Assests_gruner_17: -445900532
+      Assests_gruner_18: -461698324
+      Assests_gruner_19: -534609267
+      Assests_gruner_2: -552641793
+      Assests_gruner_20: -2139624691
+      Assests_gruner_21: 1618418093
+      Assests_gruner_22: 741378616
+      Assests_gruner_23: -361652890
+      Assests_gruner_24: -1523173848
+      Assests_gruner_25: -2078708984
+      Assests_gruner_26: 1050325827
+      Assests_gruner_27: -2067685831
+      Assests_gruner_3: -1385760523
+      Assests_gruner_4: 672421016
+      Assests_gruner_5: -1142162389
+      Assests_gruner_6: 1179504807
+      Assests_gruner_7: 1814712349
+      Assests_gruner_8: 811980709
+      Assests_gruner_9: 340655271
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
