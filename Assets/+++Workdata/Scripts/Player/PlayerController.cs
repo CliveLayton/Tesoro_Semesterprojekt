@@ -110,6 +110,16 @@ public class PlayerController : MonoBehaviour
     public LogicScript logic;
 
     /// <summary>
+    /// link to the PlayerHealth script
+    /// </summary>
+    public PlayerHealth health;
+
+    /// <summary>
+    /// link to the DeathZone script
+    /// </summary>
+    public DeathZone deathZone;
+
+    /// <summary>
     /// the button to change the state from the player to Figure
     /// </summary>
     public GameObject changeToFigureButton;
@@ -324,6 +334,8 @@ public class PlayerController : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         col = GetComponent<CapsuleCollider2D>();
         logic = GameObject.FindGameObjectWithTag("Counter").GetComponent<LogicScript>();
+        health = GetComponent<PlayerHealth>();
+        deathZone = GameObject.FindGameObjectWithTag("DeathZone").GetComponent<DeathZone>();
 
         inputActions = new GameInput();
         moveAction = inputActions.Player.Move;
@@ -578,7 +590,7 @@ public class PlayerController : MonoBehaviour
                 col.enabled = false;
                 break;
         }
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -610,14 +622,21 @@ public class PlayerController : MonoBehaviour
                         break;
                 }
 
-                logic.ReduceScore(1);
-
-                if (logic.lifePoints <= 0)
+                health.ReduceHealth(1);
+                
+                if(health.health == 0)
                 {
-                    isDying = true;
-                    StartCoroutine(Dying());
-                }
+                    transform.position = deathZone.spawnPoint[deathZone.spawnIndex].position;
+                    logic.ReduceScore(1);
 
+                    if (logic.lifePoints == 0)
+                    {
+                        rb.velocity = new Vector2(0, 0);
+                        lastMovement = new Vector2(0, 0);
+                        isDying = true;
+                        StartCoroutine(Dying());
+                    }
+                }
             } 
             //if the player jumps on the enemy destroy enemy
             else if (isKilling)
@@ -635,6 +654,28 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("OneWayPlatform"))
         {
             currentOneWayPlatform = null;
+        }
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("DeathZone"))
+        {
+            health.ReduceHealth(1);
+
+            if(health.health == 0)
+            {
+                logic.ReduceScore(1);
+
+                if(logic.lifePoints == 0)
+                {
+                    rb.velocity = new Vector2(0, 0);
+                    lastMovement = new Vector2(0, 0);
+                    isDying = true;
+                    StartCoroutine(Dying());
+                }
+            }
         }
     }
 
@@ -718,7 +759,7 @@ public class PlayerController : MonoBehaviour
     /// <param name="context"></param>
     void Jump(InputAction.CallbackContext context)
     {
-        if (!changeCooldown)
+        if (!changeCooldown && !isShroomed)
         {
             switch (state)
             {
@@ -798,6 +839,7 @@ public class PlayerController : MonoBehaviour
         {
             print("shroom");
             rb.AddForce(new Vector2(rb.velocity.x, shroomJump), ForceMode2D.Impulse);
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, 25, 25));
         }
 
        
@@ -816,7 +858,7 @@ public class PlayerController : MonoBehaviour
                     currentSpeed = targetSpeedBlob;
                 }
 
-                if (isWalled && currentOneWayPlatform == null && !changeCooldown)
+                if (isWalled && !changeCooldown)
                 {
                     if (climbWall)
                     {
@@ -847,7 +889,8 @@ public class PlayerController : MonoBehaviour
 
                 if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f && !isDying && !jumpCooldown)
                 {
-                    rb.velocity = new Vector2(rb.velocity.x, FigureJumpPower);
+                    rb.AddForce(new Vector2(0, FigureJumpPower), ForceMode2D.Impulse);
+                    //rb.velocity = new Vector2(rb.velocity.x, FigureJumpPower);
                     anim.SetTrigger("FigureJump");
                     jumpBufferCounter = 0f;
                     StartCoroutine(JumpCooldown());

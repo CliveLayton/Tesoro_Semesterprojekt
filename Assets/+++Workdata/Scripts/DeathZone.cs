@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DeathZone : MonoBehaviour
 {
-    [SerializeField] private Transform[] spawnPoint;
+    public Transform[] spawnPoint;
 
     public int spawnIndex;
 

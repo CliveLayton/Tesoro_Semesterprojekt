@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Counter
   - Obstacles
+  - DeathZone
   layers:
   - Default
   - TransparentFX
@@ -44,4 +45,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Light
+    uniqueID: 2304329805
     locked: 0
