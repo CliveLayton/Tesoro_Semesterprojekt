@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Box : MonoBehaviour
 {
+    public ParticleSystem particle;
     public void DestroyMe()
     {
+        Destroy(particle.gameObject);
         Destroy(gameObject);
     }
 }

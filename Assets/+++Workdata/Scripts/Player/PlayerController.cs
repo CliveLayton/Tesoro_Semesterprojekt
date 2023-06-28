@@ -120,6 +120,11 @@ public class PlayerController : MonoBehaviour
     public DeathZone deathZone;
 
     /// <summary>
+    /// link to the Animator of the blackscreen panel
+    /// </summary>
+    public Animator panelAnim;
+
+    /// <summary>
     /// the button to change the state from the player to Figure
     /// </summary>
     public GameObject changeToFigureButton;
@@ -221,6 +226,11 @@ public class PlayerController : MonoBehaviour
     /// bool for checking if the player is in a sequence
     /// </summary>
     public bool inSequence;
+
+    /// <summary>
+    /// bool for check if the player can change the state
+    /// </summary>
+    public bool canChangeState;
 
     /// <summary>
     /// bool for player is grounded
@@ -533,6 +543,11 @@ public class PlayerController : MonoBehaviour
         jumpCooldown = false;
     }
 
+    public void EnableChangeState()
+    {
+        canChangeState = true;
+    }
+
     /// <summary>
     /// sets inSequence to true and stops the player movement
     /// </summary>
@@ -552,6 +567,12 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         inSequence = false;
+    }
+
+    private IEnumerator ResetPlayer()
+    {
+        yield return new WaitForSeconds(1f);
+        transform.position = deathZone.spawnPoint[deathZone.spawnIndex].position;
     }
 
     /// <summary>
@@ -626,7 +647,8 @@ public class PlayerController : MonoBehaviour
                 
                 if(health.health == 0)
                 {
-                    transform.position = deathZone.spawnPoint[deathZone.spawnIndex].position;
+                    panelAnim.SetTrigger("Blend");
+                    StartCoroutine(ResetPlayer());
                     logic.ReduceScore(1);
 
                     if (logic.lifePoints == 0)
@@ -747,7 +769,7 @@ public class PlayerController : MonoBehaviour
 
     void Change(InputAction.CallbackContext context)
     {
-        if (!changeCooldown && isGrounded && context.performed)
+        if (canChangeState && !changeCooldown && isGrounded && context.performed)
         {
             ChangeState();
         }

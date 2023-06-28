@@ -8,16 +8,25 @@ public class DeathZone : MonoBehaviour
 
     public int spawnIndex;
 
+    private Transform player;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            collision.transform.position = spawnPoint[spawnIndex].position;
+            player = collision.GetComponent<Transform>();
+            StartCoroutine(ResetPlayer());
         }
     }
 
     public void SetSpawnIndex(int newSpawnIndex)
     {
         spawnIndex = newSpawnIndex;
+    }
+
+    private IEnumerator ResetPlayer()
+    {
+        yield return new WaitForSeconds(1f);
+        player.position = spawnPoint[spawnIndex].position;
     }
 }
