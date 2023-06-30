@@ -13,6 +13,7 @@ public class DialogueManager : MonoBehaviour
     [Header("Dialogue UI")]
     [SerializeField] private GameObject dialoguePanel;
     [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private TextAsset inkexample;
 
     [Header("Choices UI")]
     [SerializeField] private GameObject[] choices;
@@ -28,6 +29,7 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
+        currentStory = new Story(inkexample.text);
         inputActions = new GameInput();
 
         if(instance != null)
@@ -64,12 +66,6 @@ public class DialogueManager : MonoBehaviour
         {
             return;
         }
-
-        //handle continuing to the next Line in the dialogue when submit is pressed
-        if (isInteracting)
-        {
-            ContinueStory();
-        }
     }
 
     public void EnterDialogueMode(TextAsset inkJSON)
@@ -98,6 +94,10 @@ public class DialogueManager : MonoBehaviour
             dialogueText.text = currentStory.Continue();
             //display choices, if any, for this dialogue line
             DisplayChoices();
+        }
+        else
+        {
+            StartCoroutine(ExitDialogueMode());
         }
     }
 
@@ -139,38 +139,28 @@ public class DialogueManager : MonoBehaviour
     public void MakeChoice(int choiceIndex)
     {
         currentStory.ChooseChoiceIndex(choiceIndex);
+        ContinueStory();
     }
 
     private void OnEnable()
     {
         inputActions.Enable();
-        inputActions.UI.Submit.performed += Interact;
-        inputActions.UI.Submit.canceled += Interact;
-
-        inputActions.UI.Cancel.performed += CancelStory;
-        inputActions.UI.Cancel.canceled += CancelStory;
+        inputActions.Player.Interact.performed += Interact;
+        inputActions.Player.Interact.canceled += Interact;
     }
 
     private void OnDisable()
     {
         inputActions.Disable();
-        inputActions.UI.Submit.performed -= Interact;
-        inputActions.UI.Submit.canceled -= Interact;
-
-        inputActions.UI.Cancel.performed -= CancelStory;
-        inputActions.UI.Cancel.canceled -= CancelStory;
+        inputActions.Player.Interact.performed -= Interact;
+        inputActions.Player.Interact.canceled -= Interact;
     }
 
     void Interact(InputAction.CallbackContext context)
     {
-        isInteracting = context.performed;
-    }
-
-    void CancelStory(InputAction.CallbackContext context)
-    {
-        if (context.performed)
+        if(context.performed && currentStory.currentChoices.Count == 0)
         {
-            StartCoroutine(ExitDialogueMode());
+            ContinueStory();
         }
     }
 }

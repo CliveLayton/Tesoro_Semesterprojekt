@@ -9,6 +9,7 @@ TagManager:
   - Counter
   - Obstacles
   - DeathZone
+  - ClimbingWall
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Enemy
   - Shroom
   - OneWayPlattform
-  - 
+  - ClimbingWall
   - 
   - 
   - 

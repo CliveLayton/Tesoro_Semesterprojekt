@@ -155,7 +155,7 @@ TextureImporter:
         x: 597
         y: 773
         width: 58
-        height: 192
+        height: 64
       alignment: 9
       pivot: {x: 0.7241379, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -606,6 +606,48 @@ TextureImporter:
       bones: []
       spriteID: 48b51b9fd5a95544b8c742dce4107d28
       internalID: -2078708984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_20
+      rect:
+        serializedVersion: 2
+        x: 597
+        y: 837
+        width: 58
+        height: 64
+      alignment: 9
+      pivot: {x: 0.7241379, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4be8998fa1fe9e04a89d81f62f3ee14c
+      internalID: -2139624691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Assests_gruner_21
+      rect:
+        serializedVersion: 2
+        x: 597
+        y: 901
+        width: 58
+        height: 64
+      alignment: 9
+      pivot: {x: 0.7241379, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e73dbd9392e9c444ab52a862fac6832
+      internalID: 1618418093
       vertices: []
       indices: 
       edges: []

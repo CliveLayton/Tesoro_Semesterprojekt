@@ -74,6 +74,9 @@ public class PlayerController : MonoBehaviour
     //Layer of shrooms
     [SerializeField] private LayerMask shroomLayer;
 
+    //Layer of Walls where the player can climb
+    [SerializeField] private LayerMask climbingWallLayer;
+
     //position of the wallCheck
     [SerializeField] private Vector3 wallCheckPos;
 
@@ -90,6 +93,9 @@ public class PlayerController : MonoBehaviour
 
     //offset of the begin position of the player while climb on a ledge to the left
     [SerializeField] private Vector2 offset3;
+
+    //offset for the end position of the player as the Blob while climb on a ledge
+    [SerializeField] private Vector2 offsetBlob;
 
     //transform of the climbposition of the player
     [SerializeField] private Transform climbPosition;
@@ -253,6 +259,11 @@ public class PlayerController : MonoBehaviour
     public bool isShroomed;
 
     /// <summary>
+    /// bool for player is on a climbingWall
+    /// </summary>
+    public bool climbingWall;
+
+    /// <summary>
     /// bool for player is climbing on a wall
     /// </summary>
     public bool climbWall;
@@ -281,6 +292,11 @@ public class PlayerController : MonoBehaviour
     /// end position of the player while climb on a ledge
     /// </summary>
     private Vector2 climbOverPosition;
+
+    /// <summary>
+    /// bool to allow player to climb on a wall
+    /// </summary>
+    private bool allowClimb;
 
     /// <summary>
     /// 1 or -1 to calculate left or right movement
@@ -381,6 +397,7 @@ public class PlayerController : MonoBehaviour
         {
             case State.Blob:
                 WallSlide();
+                CheckForLedge();
                 break;
             case State.Figure:
                 CheckForLedge();
@@ -395,10 +412,14 @@ public class PlayerController : MonoBehaviour
 
         isShroomed = Physics2D.OverlapBox(transform.position + groundCheckPos, groundCheckSize, 0, shroomLayer);
 
+        climbingWall = Physics2D.OverlapBox(transform.position + wallCheckPos, wallCheckSize, 0, climbingWallLayer);
+
         UpdateSound();
 
         if (DialogueManager.GetInstance().dialogueIsPlaying)
         {
+            rb.velocity = new Vector2(0, 0);
+            lastMovement = new Vector2(0, 0);
             return;
         }
 
@@ -492,24 +513,48 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(0, 0);
 
             Vector2 ledgePosition = climbPosition.position + climbPositionoffset;
-
-            if(!leftMovement)
+            switch (state)
             {
-                climbBegunPosition = ledgePosition + offset1;
-                climbOverPosition = ledgePosition + offset2;
+                case State.Blob:
+                    if (!leftMovement)
+                    {
+                        climbBegunPosition = ledgePosition + offset1;
+                        climbOverPosition = ledgePosition + offsetBlob;
+                    }
+                    else if (leftMovement)
+                    {
+                        climbBegunPosition = ledgePosition - offset3;
+                        climbOverPosition = ledgePosition - offsetBlob;
+                    }
+                    break;
+                case State.Figure:
+                    if (!leftMovement)
+                    {
+                        climbBegunPosition = ledgePosition + offset1;
+                        climbOverPosition = ledgePosition + offset2;
+                    }
+                    else if (leftMovement)
+                    {
+                        climbBegunPosition = ledgePosition - offset3;
+                        climbOverPosition = ledgePosition - offset2;
+                    }
+                    break;
             }
-            else if (leftMovement)
-            {
-                climbBegunPosition = ledgePosition - offset3;
-                climbOverPosition = ledgePosition - offset2;
-            }
-            
 
             canClimbLedge = true;
         }
 
         if (canClimbLedge)
         {
+            switch (state)
+            {
+                case State.Blob:
+                    anim.SetTrigger("LedgeBlob");
+                    break;
+                case State.Figure:
+                    anim.SetTrigger("LedgeFigure");
+                    break;
+            }
             rb.velocity = new Vector2(0, 0);
             transform.position = climbBegunPosition;
         }
@@ -543,6 +588,9 @@ public class PlayerController : MonoBehaviour
         jumpCooldown = false;
     }
 
+    /// <summary>
+    /// enables the ability to change between states
+    /// </summary>
     public void EnableChangeState()
     {
         canChangeState = true;
@@ -699,6 +747,19 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+
+        if (collision.gameObject.CompareTag("ClimbingWall"))
+        {
+            allowClimb = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("ClimbingWall"))
+        {
+            allowClimb = false;
+        }
     }
 
     /// <summary>
@@ -786,24 +847,6 @@ public class PlayerController : MonoBehaviour
             switch (state)
             {
                 case State.Blob:
-                    if (context.performed && !isDying)
-                    {
-                        isJumping = true;
-                        anim.SetTrigger("BlobHoldJump");
-                    }
-
-                    if (context.canceled && coyoteTimeCounter > 0f && !isDying && isJumping)
-                    {
-                        rb.AddForce(new Vector2(rb.velocity.x, BlobJumpPower), ForceMode2D.Impulse);
-                        anim.SetTrigger("BlobJump");
-                        isJumping = false;
-                        coyoteTimeCounter = 0f;
-                    }
-                    else if (context.canceled && !isDying && isJumping) //if player doesn't jump before coyotetime is 0, set animation back to movement
-                    {
-                        anim.SetTrigger("noJump");
-                        isJumping = false;
-                    }
                     break;
                 case State.Figure:
                     if (context.performed)
@@ -880,7 +923,7 @@ public class PlayerController : MonoBehaviour
                     currentSpeed = targetSpeedBlob;
                 }
 
-                if (isWalled && !changeCooldown)
+                if (isWalled && !changeCooldown && allowClimb && !canClimbLedge)
                 {
                     if (climbWall)
                     {
@@ -956,6 +999,7 @@ public class PlayerController : MonoBehaviour
         anim.SetFloat("ClimbSpeed", climbSpeed);
         anim.SetBool("canClimb", canClimbLedge);
         anim.SetBool("isWalled", isWalled);
+        anim.SetBool("isClimbing", climbingWall);
         if (rb.velocity.y < -1)
         {
             anim.SetBool("fall", true);
