@@ -58,6 +58,13 @@ MonoBehaviour:
       Data3: 1615108019
       Data4: -1006256109
     Path: event:/Music/Level1Music
+  <zoomOutMusic>k__BackingField:
+    Guid:
+      Data1: 1368468258
+      Data2: 1144301175
+      Data3: -1030900065
+      Data4: 1539786877
+    Path: event:/Music/ZoomOutMusic
   <playerFootsteps>k__BackingField:
     Guid:
       Data1: -1691102419

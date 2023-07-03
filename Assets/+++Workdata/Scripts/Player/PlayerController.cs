@@ -2,7 +2,7 @@ using Cinemachine;
 using FMOD.Studio;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.PlasticSCM.Editor.WebApi;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -106,9 +106,14 @@ public class PlayerController : MonoBehaviour
     [Header("Linking Objects")]
 
     /// <summary>
-    /// Virtual Camera Object
+    /// Default Virtual Camera Object
     /// </summary>
     public CinemachineVirtualCamera cam;
+
+    /// <summary>
+    /// Virtual Camera for Title zoom out
+    /// </summary>
+    public CinemachineVirtualCamera camZoomOut;
 
     /// <summary>
     /// logic script
@@ -131,6 +136,11 @@ public class PlayerController : MonoBehaviour
     public Animator panelAnim;
 
     /// <summary>
+    /// link to the Animator of the lifebar
+    /// </summary>
+    public Animator lifebarAnim;
+
+    /// <summary>
     /// the button to change the state from the player to Figure
     /// </summary>
     public GameObject changeToFigureButton;
@@ -139,6 +149,16 @@ public class PlayerController : MonoBehaviour
     /// the button to change the state from the player to Blob
     /// </summary>
     public GameObject changeToBlobButton;
+
+    /// <summary>
+    /// reference to the level begin music
+    /// </summary>
+    [SerializeField] private MusicArea levelBegin;
+
+    /// <summary>
+    /// reference to the level music
+    /// </summary>
+    [SerializeField] private MusicArea levelMusic;
 
     #endregion
 
@@ -371,6 +391,7 @@ public class PlayerController : MonoBehaviour
     //set the audio for playerfootsteps
     private void Start()
     {
+        AudioManager.instance.SetMusicArea(levelBegin);
         playerFootsteps = AudioManager.instance.CreateEventInstance(FMODEvents.instance.playerFootsteps);
     }
 
@@ -552,6 +573,7 @@ public class PlayerController : MonoBehaviour
                     anim.SetTrigger("LedgeBlob");
                     break;
                 case State.Figure:
+                    anim.SetBool("canClimb", true);
                     anim.SetTrigger("LedgeFigure");
                     break;
             }
@@ -565,6 +587,7 @@ public class PlayerController : MonoBehaviour
     public void LedgeClimbOver()
     {
         canClimbLedge = false;
+        anim.SetBool("canClimb", false);
         transform.position = climbOverPosition;
         Invoke("AllowLedgeGrab", 0.1f);
     }
@@ -604,6 +627,7 @@ public class PlayerController : MonoBehaviour
         inSequence = true;
         rb.velocity = new Vector2(0, 0);
         lastMovement = new Vector2(0, 0);
+        lifebarAnim.SetTrigger("Offscreen");
         StartCoroutine(ExitSequence());
     }
 
@@ -613,7 +637,13 @@ public class PlayerController : MonoBehaviour
     /// <returns>wait for 2 seconds</returns>
     private IEnumerator ExitSequence()
     {
+        camZoomOut.Priority = 12;
         yield return new WaitForSeconds(2f);
+        AudioManager.instance.SetMusicArea(levelMusic);
+        yield return new WaitForSeconds(5f);
+        camZoomOut.Priority = 8;
+        yield return new WaitForSeconds(1.6f);
+        lifebarAnim.SetTrigger("Onscreen");
         inSequence = false;
     }
 
@@ -997,7 +1027,6 @@ public class PlayerController : MonoBehaviour
         anim.SetBool("isGrounded", isGrounded);
         anim.SetFloat("MovementSpeed", speed);
         anim.SetFloat("ClimbSpeed", climbSpeed);
-        anim.SetBool("canClimb", canClimbLedge);
         anim.SetBool("isWalled", isWalled);
         anim.SetBool("isClimbing", climbingWall);
         if (rb.velocity.y < -1)

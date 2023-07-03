@@ -1,5 +1,8 @@
 public enum MusicArea
 {
-    TOWN_AREA = 0,
-    FOREST_AREA = 1
+    MAIN_MENU = 0,
+    LEVEL_BEGIN = 1,
+    TUTORIAL_LEVEL = 2,
+    ZOOMOUT = 3,
+    LEVEL = 4
 }

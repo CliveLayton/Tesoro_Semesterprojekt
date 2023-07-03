@@ -5,6 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] private MusicArea area;
+
+    private void Start()
+    {
+        AudioManager.instance.SetMusicArea(area);
+    }
+
     /// <summary>
     /// play the audio for pressing the startgame button and start coroutine for entering the game
     /// </summary>
