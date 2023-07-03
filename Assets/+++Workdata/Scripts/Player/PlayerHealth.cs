@@ -25,6 +25,9 @@ public class PlayerHealth : MonoBehaviour
     /// </summary>
     public Image[] hearts;
 
+    /// <summary>
+    /// get components
+    /// </summary>
     private void Awake()
     {
         logic = GameObject.FindGameObjectWithTag("Counter").GetComponent<LogicScript>();
@@ -32,16 +35,19 @@ public class PlayerHealth : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //if health get over the number of current available hearts set it so the number of hearts
         if(health > numOfHearts)
         {
             health = numOfHearts;
         }
 
+        //if health is 0 set it back to 3
         if(health == 0)
         {
             health = 3;
         }
 
+        //loop through the heart images and enable them if the number of images fits the current health
         for(int i = 0; i < hearts.Length; i++)
         {
             if(i < health)

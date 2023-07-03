@@ -43,12 +43,6 @@ public class PlayerController : MonoBehaviour
     //jump power for the Figure
     [SerializeField] private float FigureJumpPower = 15f;
 
-    //default jump power of the Blob
-    [SerializeField] private float BlobJumpPower = 5f;
-
-    //multiplier for the Blob jump
-    [SerializeField] private float jumpMultiplier = 5f;
-
     //shroom jump power
     [SerializeField] private float shroomJump = 18f;
 
@@ -279,6 +273,11 @@ public class PlayerController : MonoBehaviour
     public bool isShroomed;
 
     /// <summary>
+    /// bool for checking if the player is currently in a small passage
+    /// </summary>
+    public bool inSmallPassage;
+
+    /// <summary>
     /// bool for player is on a climbingWall
     /// </summary>
     public bool climbingWall;
@@ -339,16 +338,6 @@ public class PlayerController : MonoBehaviour
     public float coyoteTimeCounter;
 
     /// <summary>
-    /// buffer time for the player to press the jump button before hitting the ground
-    /// </summary>
-    private float jumpBufferTime = 0.2f;
-
-    /// <summary>
-    /// counter for the jump buffer
-    /// </summary>
-    public float jumpBufferCounter;
-
-    /// <summary>
     /// last movement input of the player
     /// </summary>
     private Vector2 lastMovement;
@@ -401,14 +390,6 @@ public class PlayerController : MonoBehaviour
     {
         moveInput = moveAction.ReadValue<Vector2>();
         coyoteTimeCounter = isGrounded ? coyoteTime : coyoteTimeCounter - Time.deltaTime;
-        if(isJumping && BlobJumpPower < 10f) //while the jump button is pressed increase the jumppower
-        {
-            BlobJumpPower += jumpMultiplier * Time.deltaTime;
-        }
-        else if (!isJumping) //after jump set the jumppower back to default
-        {
-            BlobJumpPower = 5f;
-        }
     }
 
     //set the ground check, wall check, shroom check and killing check. perform movement method
@@ -528,7 +509,7 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void CheckForLedge()
     {
-        if (ledgeDetected && canGrabLedge)
+        if (ledgeDetected && canGrabLedge && !changeCooldown)
         {
             canGrabLedge = false;
             rb.velocity = new Vector2(0, 0);
@@ -570,7 +551,7 @@ public class PlayerController : MonoBehaviour
             switch (state)
             {
                 case State.Blob:
-                    anim.SetTrigger("LedgeBlob");
+                    anim.SetBool("LedgeBlob", true);
                     break;
                 case State.Figure:
                     anim.SetBool("canClimb", true);
@@ -588,6 +569,7 @@ public class PlayerController : MonoBehaviour
     {
         canClimbLedge = false;
         anim.SetBool("canClimb", false);
+        anim.SetBool("LedgeBlob", false);
         transform.position = climbOverPosition;
         Invoke("AllowLedgeGrab", 0.1f);
     }
@@ -598,17 +580,6 @@ public class PlayerController : MonoBehaviour
     private void AllowLedgeGrab()
     {
         canGrabLedge = true;
-    }
-
-    /// <summary>
-    /// set jumpcooldown to true and after 0.4 seconds back to false
-    /// </summary>
-    /// <returns>wait for 0.4 seconds</returns>
-    private IEnumerator JumpCooldown()
-    {
-        jumpCooldown = true;
-        yield return new WaitForSeconds(0.4f);
-        jumpCooldown = false;
     }
 
     /// <summary>
@@ -628,6 +599,8 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(0, 0);
         lastMovement = new Vector2(0, 0);
         lifebarAnim.SetTrigger("Offscreen");
+        changeToFigureButton.GetComponent<Button>().interactable = false;
+        changeToBlobButton.GetComponent<Button>().interactable = false;
         StartCoroutine(ExitSequence());
     }
 
@@ -643,6 +616,8 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(5f);
         camZoomOut.Priority = 8;
         yield return new WaitForSeconds(1.6f);
+        changeToFigureButton.GetComponent<Button>().interactable = true;
+        changeToBlobButton.GetComponent<Button>().interactable = true;
         lifebarAnim.SetTrigger("Onscreen");
         inSequence = false;
     }
@@ -691,6 +666,14 @@ public class PlayerController : MonoBehaviour
         }
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    /// <summary>
+    /// set the bool inSmallPassage true if it's currently false and false if it's currently true
+    /// </summary>
+    public void StayCrouched()
+    {
+        inSmallPassage = inSmallPassage ? false : true;
     }
 
     #endregion
@@ -843,12 +826,12 @@ public class PlayerController : MonoBehaviour
         switch (state)
         {
             case State.Blob:
-                if (context.performed && isGrounded)
+                if (context.performed && isGrounded && !inSequence)
                 {
                     anim.SetTrigger("BlobCrouch");
                 }
 
-                if (context.canceled && isGrounded)
+                if (context.canceled && isGrounded && !inSmallPassage)
                 {
                     anim.SetTrigger("BlobCrouchEnd");
                 }
@@ -858,9 +841,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// keyboard button for change state of the player
+    /// </summary>
+    /// <param name="context"></param>
     void Change(InputAction.CallbackContext context)
     {
-        if (canChangeState && !changeCooldown && isGrounded && context.performed)
+        if (canChangeState && !changeCooldown && isGrounded && !inSequence && context.performed)
         {
             ChangeState();
         }
@@ -879,10 +866,11 @@ public class PlayerController : MonoBehaviour
                 case State.Blob:
                     break;
                 case State.Figure:
-                    if (context.performed)
+                    if (context.performed && isGrounded)
                     {
                         isJumping = true;
-                        jumpBufferCounter = jumpBufferTime;
+                        rb.AddForce(new Vector2(0, FigureJumpPower), ForceMode2D.Impulse);
+                        anim.SetTrigger("FigureJump");
                     }
                     if (context.canceled)
                     {
@@ -981,20 +969,6 @@ public class PlayerController : MonoBehaviour
                     currentSpeed = targetSpeedFigure;
                 }
 
-
-                if (jumpBufferCounter > 0f && coyoteTimeCounter > 0f && !isDying && !jumpCooldown)
-                {
-                    rb.AddForce(new Vector2(0, FigureJumpPower), ForceMode2D.Impulse);
-                    //rb.velocity = new Vector2(rb.velocity.x, FigureJumpPower);
-                    anim.SetTrigger("FigureJump");
-                    jumpBufferCounter = 0f;
-                    StartCoroutine(JumpCooldown());
-                    if (!isJumping)
-                    {
-                        rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-                    }
-                }
-
                 rb.velocity = new Vector2(currentSpeed * directionMultiply, rb.velocity.y);
                 break;
         }
@@ -1046,7 +1020,6 @@ public class PlayerController : MonoBehaviour
     {
         if (!changeCooldown && isGrounded)
         {
-            changeCooldown = true;
             switch (state)
             {
                 case State.Blob: //Change it to State Figure
@@ -1064,9 +1037,13 @@ public class PlayerController : MonoBehaviour
                     anim.SetTrigger("change");
                     break;
             }
+            changeCooldown = true;
         }
     }
 
+    /// <summary>
+    /// set changecooldown to false and buttons interactable to true
+    /// </summary>
     public void ChangeCooldown()
     {
         changeCooldown = false;
@@ -1097,7 +1074,7 @@ public class PlayerController : MonoBehaviour
         //otherwise, stop the footsteps event
         else
         {
-            playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
+            playerFootsteps.stop(STOP_MODE.IMMEDIATE);
         }
     }
 

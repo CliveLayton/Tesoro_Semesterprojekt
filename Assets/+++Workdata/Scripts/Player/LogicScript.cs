@@ -15,6 +15,9 @@ public class LogicScript : MonoBehaviour
     /// </summary>
     public TextMeshProUGUI lifePointsCounter;
 
+    /// <summary>
+    /// set lifepoints back to 5 if they are 0 and set the current lifepoints to the text
+    /// </summary>
     private void FixedUpdate()
     {
         if(lifePoints == 0)

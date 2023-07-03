@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TestingEnemy : MonoBehaviour
 {
+    /// <summary>
+    /// Destroys the gameobject
+    /// </summary>
     public void DestroyEnemy()
     {
         Destroy(this.gameObject);

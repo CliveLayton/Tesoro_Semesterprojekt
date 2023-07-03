@@ -5,8 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    //link to a item in the music area enum
     [SerializeField] private MusicArea area;
 
+    /// <summary>
+    /// sets the music area at the start of the scene
+    /// </summary>
     private void Start()
     {
         AudioManager.instance.SetMusicArea(area);

@@ -35,7 +35,7 @@ public class LedgeDetection : MonoBehaviour
     private void Update()
     {
         transform.eulerAngles = player.leftMovement ? new Vector3(0, 180, 0) : new Vector3(0, 0, 0);
-        ledgeDetectionPos.x = player.leftMovement ? -0.387f : 0.387f;
+        ledgeDetectionPos.x = player.leftMovement ? -0.387f : 0.387f; //get numbers while checking the position in the inspector
         if (canDetected)
         {
             player.ledgeDetected = Physics2D.OverlapCircle(transform.position + ledgeDetectionPos, radius, groundLayer);
