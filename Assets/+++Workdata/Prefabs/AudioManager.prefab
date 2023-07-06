@@ -58,13 +58,6 @@ MonoBehaviour:
       Data3: 1615108019
       Data4: -1006256109
     Path: event:/Music/Level1Music
-  <zoomOutMusic>k__BackingField:
-    Guid:
-      Data1: 1368468258
-      Data2: 1144301175
-      Data3: -1030900065
-      Data4: 1539786877
-    Path: event:/Music/ZoomOutMusic
   <playerFootsteps>k__BackingField:
     Guid:
       Data1: -1691102419
@@ -72,13 +65,62 @@ MonoBehaviour:
       Data3: 556600252
       Data4: -1005609260
     Path: event:/SFX/Player/PlayerFootsteps
-  <blobJump>k__BackingField:
+  <playerSprint>k__BackingField:
+    Guid:
+      Data1: -2036494582
+      Data2: 1197567190
+      Data3: -110243447
+      Data4: 2087671504
+    Path: event:/SFX/Player/PlayerFootstepsSprint
+  <figureJump>k__BackingField:
     Guid:
       Data1: -854137418
       Data2: 1226657535
       Data3: -2040127851
       Data4: -1603716621
-    Path: event:/SFX/Player/BlobJump
+    Path: event:/SFX/Player/JumpSound
+  <landing>k__BackingField:
+    Guid:
+      Data1: -1191298093
+      Data2: 1237257736
+      Data3: 125173901
+      Data4: -887066353
+    Path: event:/SFX/Player/LandSound
+  <blobWall>k__BackingField:
+    Guid:
+      Data1: 95053649
+      Data2: 1264645988
+      Data3: -505725017
+      Data4: -151272304
+    Path: event:/SFX/Player/BlobWall
+  <changeStateSound>k__BackingField:
+    Guid:
+      Data1: -485357780
+      Data2: 1179074654
+      Data3: 2046792357
+      Data4: -1284390680
+    Path: event:/SFX/Player/ChangeState
+  <playerDying>k__BackingField:
+    Guid:
+      Data1: -634533959
+      Data2: 1193734649
+      Data3: -1920810615
+      Data4: -1577382920
+    Path: event:/SFX/Player/PlayerDying
+  <playerHurt>k__BackingField:
+    Guid:
+      Data1: 1576543203
+      Data2: 1315231388
+      Data3: 1137439649
+      Data4: 1119801616
+    Path: event:/SFX/Player/PlayerHurt
+  <gameOver>k__BackingField:
+    Guid:
+      Data1: -627829589
+      Data2: 1269774765
+      Data3: 440244911
+      Data4: -452827028
+    Path: event:/SFX/Player/GameOver
   <enemyGetHit>k__BackingField:
     Guid:
       Data1: 958397459
@@ -93,6 +135,13 @@ MonoBehaviour:
       Data3: -272710474
       Data4: 708851671
     Path: event:/SFX/Enemy/EnemyFootsteps
+  <shroomSound>k__BackingField:
+    Guid:
+      Data1: -313395222
+      Data2: 1092230230
+      Data3: -1787706438
+      Data4: -1647158011
+    Path: event:/SFX/Enviroment/Shroom
   <startGameSound>k__BackingField:
     Guid:
       Data1: 1153298829
@@ -100,6 +149,20 @@ MonoBehaviour:
       Data3: -1302627651
       Data4: 1108096677
     Path: event:/SFX/UI/GameStart
+  <buttonHovered>k__BackingField:
+    Guid:
+      Data1: -1046978916
+      Data2: 1152546700
+      Data3: 1873889924
+      Data4: 1338159146
+    Path: event:/SFX/UI/Buttonhovered
+  <buttonSelected>k__BackingField:
+    Guid:
+      Data1: 574623702
+      Data2: 1292308286
+      Data3: 1238728832
+      Data4: 1348568324
+    Path: event:/SFX/UI/Buttonselected
 --- !u!1 &2610092279973239287
 GameObject:
   m_ObjectHideFlags: 0

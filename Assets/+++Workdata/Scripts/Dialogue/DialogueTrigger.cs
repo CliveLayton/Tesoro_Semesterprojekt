@@ -13,32 +13,14 @@ public class DialogueTrigger : MonoBehaviour
 
     [Header("Ink JSON")]
     //link to the inkJson file
-    [SerializeField] private TextAsset inkJSON;
+    [SerializeField] private string inkPath;
 
-    /// <summary>
-    /// bool to check if the player is in range to interact
-    /// </summary>
-    private bool playerInRange;
-
-    /// <summary>
-    /// Input Action Asset
-    /// </summary>
-    private GameInput inputActions;
-
-    /// <summary>
-    /// bool for check if the player presses the interact button
-    /// </summary>
-    private bool isInteracting;
+    private DialogueManager dialogueManager;
 
     /// <summary>
     /// link to the player
     /// </summary>
     public GameObject player;
-
-    /// <summary>
-    /// link to the player rigidbody
-    /// </summary>
-    private Rigidbody2D playerRb;
 
     #endregion
 
@@ -49,36 +31,24 @@ public class DialogueTrigger : MonoBehaviour
     /// </summary>
     private void Awake()
     {
-        playerInRange = false;
         visualCue.SetActive(false);
 
-        inputActions = new GameInput();
-        playerRb = player.GetComponent<Rigidbody2D>();
-    }
-
-    private void Update()
-    {
-        //if player is in range and dialogue is not playing enable visual cue
-        if(playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying)
-        {
-            visualCue.SetActive(true);
-            //if the player interacts in the range enter dialogue mode with the linked inkJson file on the script
-            if(isInteracting && (playerRb.velocity.x == 0))
-            {
-                DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
-            }
-        }
-        else
-        {
-            visualCue.SetActive(false);
-        }
+        dialogueManager = FindObjectOfType<DialogueManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerInRange = true;
+
+            //if player is in range and dialogue is not playing enable visual cue
+            if (!dialogueManager.dialogueIsPlaying)
+            {
+                visualCue.SetActive(true);
+
+                dialogueManager.startDialogue = true;
+                dialogueManager.dialoguePath = inkPath;            
+            }
         }
     }
 
@@ -86,37 +56,9 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            playerInRange = false;
+            dialogueManager.startDialogue = false;
+            visualCue.SetActive(false);
         }
-    }
-
-    /// <summary>
-    /// enable input action for interact
-    /// </summary>
-    private void OnEnable()
-    {
-        inputActions.Enable();
-        inputActions.Player.Interact.performed += Interact;
-        inputActions.Player.Interact.canceled += Interact;
-    }
-
-    /// <summary>
-    /// disable input action for interact
-    /// </summary>
-    private void OnDisable()
-    {
-        inputActions.Disable();
-        inputActions.Player.Interact.performed -= Interact;
-        inputActions.Player.Interact.canceled -= Interact;
-    }
-
-    /// <summary>
-    /// gets the input of the player
-    /// </summary>
-    /// <param name="context"></param>
-    void Interact(InputAction.CallbackContext context)
-    {
-        isInteracting = context.performed;
     }
 
     #endregion

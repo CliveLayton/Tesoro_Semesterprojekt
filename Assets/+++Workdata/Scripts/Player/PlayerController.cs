@@ -135,6 +135,11 @@ public class PlayerController : MonoBehaviour
     public Animator lifebarAnim;
 
     /// <summary>
+    /// link to the Animator of the change button
+    /// </summary>
+    public Animator changeButtonAnim;
+
+    /// <summary>
     /// the button to change the state from the player to Figure
     /// </summary>
     public GameObject changeToFigureButton;
@@ -145,9 +150,14 @@ public class PlayerController : MonoBehaviour
     public GameObject changeToBlobButton;
 
     /// <summary>
-    /// reference to the level begin music
+    /// the buttons for the endscreen
     /// </summary>
-    [SerializeField] private MusicArea levelBegin;
+    public GameObject endScreen;
+
+    /// <summary>
+    /// link to the pause menu script
+    /// </summary>
+    public PauseMenu pauseMenu;
 
     /// <summary>
     /// reference to the level music
@@ -221,6 +231,11 @@ public class PlayerController : MonoBehaviour
     /// bool for player is currently jumping
     /// </summary>
     public bool isJumping;
+
+    /// <summary>
+    /// bool for player is crouching
+    /// </summary>
+    public bool isCrouching;
 
     /// <summary>
     /// bool for player is currently dying
@@ -302,6 +317,9 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private bool canGrabLedge = true;
 
+
+    private bool canMove;
+
     /// <summary>
     /// begin position of the player while climb on a ledge
     /// </summary>
@@ -357,6 +375,11 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private EventInstance playerFootsteps;
 
+    /// <summary>
+    /// Audio Eventinstance for player sprinting
+    /// </summary>
+    private EventInstance playerSprint;
+
     #endregion
 
     #region Unity Event Functions
@@ -374,22 +397,16 @@ public class PlayerController : MonoBehaviour
 
         inputActions = new GameInput();
         moveAction = inputActions.Player.Move;
+        canMove = true;
+        climbWall = true;
         state = State.Figure;
     }
 
     //set the audio for playerfootsteps
     private void Start()
     {
-        AudioManager.instance.SetMusicArea(levelBegin);
         playerFootsteps = AudioManager.instance.CreateEventInstance(FMODEvents.instance.playerFootsteps);
-    }
-
-    //get the moveinput and set the coyotetime counter
-    //set the jump power for the blob
-    private void Update()
-    {
-        moveInput = moveAction.ReadValue<Vector2>();
-        coyoteTimeCounter = isGrounded ? coyoteTime : coyoteTimeCounter - Time.deltaTime;
+        playerSprint = AudioManager.instance.CreateEventInstance(FMODEvents.instance.playerSprint);
     }
 
     //set the ground check, wall check, shroom check and killing check. perform movement method
@@ -425,10 +442,18 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (!canClimbLedge && !isDying && !inSequence)
+        if (!canClimbLedge && !isDying && !inSequence && canMove)
         {
             Movement();
         }
+    }
+
+    //get the moveinput and set the coyotetime counter
+    //set the jump power for the blob
+    private void Update()
+    {
+        moveInput = moveAction.ReadValue<Vector2>();
+        coyoteTimeCounter = isGrounded ? coyoteTime : coyoteTimeCounter - Time.deltaTime;
     }
 
     //update animator states
@@ -448,7 +473,9 @@ public class PlayerController : MonoBehaviour
             case State.Figure:
                 break;
         }
+
         inputActions.Enable();
+
         inputActions.Player.Sprint.performed += Run;
         inputActions.Player.Sprint.canceled += Run;
 
@@ -469,6 +496,7 @@ public class PlayerController : MonoBehaviour
         playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
 
         inputActions.Disable();
+
         inputActions.Player.Sprint.performed -= Run;
         inputActions.Player.Sprint.canceled -= Run;
 
@@ -486,6 +514,20 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Own Methods/Functions
+
+    public void EnableMovement()
+    {
+        canMove = true;
+    }
+
+    public void DisableMovement()
+    {
+        canMove = false;
+        rb.velocity = new Vector2(0, 0);
+        moveInput = Vector2.zero;
+        lastMovement = Vector2.zero;
+
+    }
 
     /// <summary>
     /// if player moves against a wall, set the velocity of y to wallslide speed and wallsliding to true
@@ -591,6 +633,27 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
+    /// stops player movement and set inSequence to true
+    /// </summary>
+    public void Endscreen()
+    {
+        inSequence = true;
+        rb.velocity = new Vector2(0, 0);
+        lastMovement = new Vector2(0, 0);
+        StartCoroutine(EnableButtons());
+    }
+
+    /// <summary>
+    /// enables buttons in the endscreen
+    /// </summary>
+    /// <returns>wait for 1 second</returns>
+    private IEnumerator EnableButtons()
+    {
+        yield return new WaitForSeconds(1.5f);
+        endScreen.SetActive(true);
+    }
+
+    /// <summary>
     /// sets inSequence to true and stops the player movement
     /// </summary>
     public void EnterSequence()
@@ -598,9 +661,9 @@ public class PlayerController : MonoBehaviour
         inSequence = true;
         rb.velocity = new Vector2(0, 0);
         lastMovement = new Vector2(0, 0);
+        pauseMenu.enabled = false;
         lifebarAnim.SetTrigger("Offscreen");
-        changeToFigureButton.GetComponent<Button>().interactable = false;
-        changeToBlobButton.GetComponent<Button>().interactable = false;
+        changeButtonAnim.SetTrigger("Offscreen");
         StartCoroutine(ExitSequence());
     }
 
@@ -616,10 +679,10 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(5f);
         camZoomOut.Priority = 8;
         yield return new WaitForSeconds(1.6f);
-        changeToFigureButton.GetComponent<Button>().interactable = true;
-        changeToBlobButton.GetComponent<Button>().interactable = true;
+        changeButtonAnim.SetTrigger("Onscreen");
         lifebarAnim.SetTrigger("Onscreen");
         inSequence = false;
+        pauseMenu.enabled = true;
     }
 
     private IEnumerator ResetPlayer()
@@ -655,6 +718,7 @@ public class PlayerController : MonoBehaviour
     /// <returns>wait for 0.8 seconds</returns>
     private IEnumerator GameOver()
     {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.gameOver, this.transform.position);
         switch (state)
         {
             case State.Blob:
@@ -664,16 +728,22 @@ public class PlayerController : MonoBehaviour
                 col.enabled = false;
                 break;
         }
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     /// <summary>
     /// set the bool inSmallPassage true if it's currently false and false if it's currently true
     /// </summary>
-    public void StayCrouched()
+    public void CrouchModePassage(bool value)
     {
-        inSmallPassage = inSmallPassage ? false : true;
+        inSmallPassage = value;
+
+        if (!inSmallPassage && isCrouching)
+        {
+            anim.SetTrigger("BlobCrouchEnd");
+            isCrouching = false;
+        }
     }
 
     #endregion
@@ -694,6 +764,7 @@ public class PlayerController : MonoBehaviour
             //if the player hits an enemy reduce lifepoints and start hurt animation
             if (!isKilling)
             {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHurt, this.transform.position);
                 switch (state)
                 {
                     case State.Blob:
@@ -708,6 +779,7 @@ public class PlayerController : MonoBehaviour
                 
                 if(health.health == 0)
                 {
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDying, this.transform.position);
                     panelAnim.SetTrigger("Blend");
                     StartCoroutine(ResetPlayer());
                     logic.ReduceScore(1);
@@ -724,7 +796,7 @@ public class PlayerController : MonoBehaviour
             //if the player jumps on the enemy destroy enemy
             else if (isKilling)
             {
-                collision.gameObject.GetComponent<TestingEnemy>().DestroyEnemy();
+                collision.gameObject.GetComponent<WalkingEnemy>().GetDamage();
             }
            
         }
@@ -826,14 +898,15 @@ public class PlayerController : MonoBehaviour
         switch (state)
         {
             case State.Blob:
-                if (context.performed && isGrounded && !inSequence)
+                if (context.performed && !isCrouching && isGrounded && !inSequence)
                 {
                     anim.SetTrigger("BlobCrouch");
+                    isCrouching = true;
                 }
-
-                if (context.canceled && isGrounded && !inSmallPassage)
+                else if (!context.performed && isCrouching && isGrounded && !inSmallPassage)
                 {
                     anim.SetTrigger("BlobCrouchEnd");
+                    isCrouching = false;
                 }
                 break;
             case State.Figure:
@@ -920,7 +993,7 @@ public class PlayerController : MonoBehaviour
 
         if (isShroomed)
         {
-            print("shroom");
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.shroomSound, this.transform.position);
             rb.AddForce(new Vector2(rb.velocity.x, shroomJump), ForceMode2D.Impulse);
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, 25, 25));
         }
@@ -1061,7 +1134,7 @@ public class PlayerController : MonoBehaviour
     private void UpdateSound()
     {
         //start footsteps event if the player has an x velocity and is on the ground
-        if(rb.velocity.x !=0 && isGrounded)
+        if(Mathf.Abs(rb.velocity.x) > 1f && !isRunning && isGrounded)
         {
             //get the playback state
             PLAYBACK_STATE playbackState;
@@ -1074,16 +1147,54 @@ public class PlayerController : MonoBehaviour
         //otherwise, stop the footsteps event
         else
         {
-            playerFootsteps.stop(STOP_MODE.IMMEDIATE);
+            playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
+        }
+
+        if (Mathf.Abs(rb.velocity.x) > 5f && isRunning && isGrounded)
+        {
+            PLAYBACK_STATE playbackState;
+            playerSprint.getPlaybackState(out playbackState);
+            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+            {
+                playerSprint.start();
+            }
+        }
+        else
+        {
+            playerSprint.stop(STOP_MODE.ALLOWFADEOUT);
         }
     }
 
     /// <summary>
     /// set the audio for the Blob jump
     /// </summary>
-    public void BlobJump()
+    public void FigureJump()
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.blobJump, this.transform.position);
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.figureJump, this.transform.position);
+    }
+
+    /// <summary>
+    /// set the audio for landing
+    /// </summary>
+    public void FigureLand()
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.landing, this.transform.position);
+    }
+
+    /// <summary>
+    /// set the audio for blob stick to the wall
+    /// </summary>
+    public void BlobWall()
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.blobWall, this.transform.position);
+    }
+
+    /// <summary>
+    /// set the audio for changing state
+    /// </summary>
+    public void ChangeStateSound()
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.changeStateSound, this.transform.position);
     }
 
     #endregion

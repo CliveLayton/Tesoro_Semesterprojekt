@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class VolumeKnob : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class VolumeKnob : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler
 {
     /// <summary>
     /// image component of the button
@@ -22,7 +22,13 @@ public class VolumeKnob : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     /// <param name="eventData"></param>
     public void OnPointerDown(PointerEventData eventData)
     {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.buttonSelected, this.transform.position);
         image.sprite = pressedSprite;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.buttonHovered, this.transform.position);
     }
 
     /// <summary>

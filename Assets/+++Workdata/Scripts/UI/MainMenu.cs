@@ -35,12 +35,12 @@ public class MainMenu : MonoBehaviour
     }
 
     /// <summary>
-    /// load the level scene after 1.5 seconds
+    /// load the level scene after 0.5 seconds
     /// </summary>
-    /// <returns>wait for 1.5 seconds</returns>
+    /// <returns>wait for 0.5 seconds</returns>
     private IEnumerator GoToGame()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

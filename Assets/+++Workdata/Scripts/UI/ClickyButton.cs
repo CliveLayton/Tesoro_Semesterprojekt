@@ -25,6 +25,7 @@ public class ClickyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         if (!GetComponent<Button>().interactable)
             return;
 
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.buttonSelected, this.transform.position);
         image.sprite = pressedSprite;
     }
 
@@ -37,6 +38,7 @@ public class ClickyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         if (!GetComponent<Button>().interactable)
             return;
 
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.buttonHovered, this.transform.position);
         image.sprite = hoveredSprite;
     }
 

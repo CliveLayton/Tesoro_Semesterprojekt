@@ -7,32 +7,65 @@ using TMPro;
 using UnityEngine.InputSystem;
 using System.Xml.Serialization;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
+using UnityEngine.Rendering;
 
 public class DialogueManager : MonoBehaviour
 {
     [Header("Dialogue UI")]
+
+    //link to the dialogue panel
     [SerializeField] private GameObject dialoguePanel;
+
+    //link to the dialogue text
     [SerializeField] private TextMeshProUGUI dialogueText;
-    [SerializeField] private TextAsset inkexample;
 
     [Header("Choices UI")]
+
+    //array of choices for the dialogue
     [SerializeField] private GameObject[] choices;
+
+    [SerializeField] private TextAsset textAsset;
+
+    //array of text for the dialogue
     private TextMeshProUGUI[] choicesText;
 
+    /// <summary>
+    /// current ink Story
+    /// </summary>
     private Story currentStory;
 
+    /// <summary>
+    /// bool for check of dialogue is active
+    /// </summary>
     public bool dialogueIsPlaying { get; private set; }
 
+    /// <summary>
+    /// static DialogueManager variable
+    /// </summary>
     private static DialogueManager instance;
+
+    /// <summary>
+    /// Input Action Asset
+    /// </summary>
     private GameInput inputActions;
+
+    /// <summary>
+    /// bool for player is pressing interact button
+    /// </summary>
     public bool isInteracting;
+
+    public bool startDialogue, isInDialogue;
+
+    public string dialoguePath;
 
     private void Awake()
     {
-        currentStory = new Story(inkexample.text);
         inputActions = new GameInput();
 
-        if(instance != null)
+        currentStory = new Story(textAsset.text);
+
+        if (instance != null)
         {
             Debug.LogWarning("Found more than one Dialogue Mangager in the scene");
         }
@@ -68,15 +101,24 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void EnterDialogueMode(TextAsset inkJSON)
+    /// <summary>
+    /// enters dialogue with the inkfile
+    /// </summary>
+    /// <param name="inkJSON">inkfile with text for the dialogue</param>
+    public void EnterDialogueMode(string inkPath)
     {
-        currentStory = new Story(inkJSON.text);
+        isInDialogue = true;
+        currentStory.ChoosePathString(inkPath);
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
 
         ContinueStory();
     }
 
+    /// <summary>
+    /// exit dialogue and disable dialogue panel
+    /// </summary>
+    /// <returns>waits for 0.2 seconds</returns>
     private IEnumerator ExitDialogueMode()
     {
         yield return new WaitForSeconds(0.2f);
@@ -84,7 +126,9 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
         dialogueText.text = "";
+        isInDialogue = false;
     }
+
 
     private void ContinueStory()
     {
@@ -101,9 +145,25 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// displays choices if current text has one 
+    /// </summary>
     private void DisplayChoices()
     {
+
+
         List<Choice> currentChoices = currentStory.currentChoices;
+
+        //go through the remaining choices the UI supports and make sure they're hidden
+        for (int i = 0; i < choices.Length; i++)
+        {
+            choices[i].gameObject.SetActive(false);
+        }
+
+        if (currentChoices.Count == 0 || currentChoices == null)
+        {
+            return;
+        }
 
         //defensive check to make sure our UI can support the number of choices coming in.
         if(currentChoices.Count > choices.Length)
@@ -119,15 +179,15 @@ public class DialogueManager : MonoBehaviour
             choicesText[index].text = choice.text;
             index++;
         }
-        //go through the remaining choices the UI supports and make sure they're hidden
-        for(int i = index; i< choices.Length; i++)
-        {
-            choices[i].gameObject.SetActive(false);
-        }
+
 
         StartCoroutine(SelectFirstChoice());
     }
 
+    /// <summary>
+    /// select first choice 
+    /// </summary>
+    /// <returns>wait for end of frame</returns>
     private IEnumerator SelectFirstChoice()
     {
         //Event System requires we clear it first, then wait for at least one frame before we set current selected object
@@ -136,12 +196,19 @@ public class DialogueManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(choices[0].gameObject);
     }
 
+    /// <summary>
+    /// select the choice from the index of choice objects
+    /// </summary>
+    /// <param name="choiceIndex"></param>
     public void MakeChoice(int choiceIndex)
     {
         currentStory.ChooseChoiceIndex(choiceIndex);
         ContinueStory();
     }
 
+    /// <summary>
+    /// enables input actions for dialogue
+    /// </summary>
     private void OnEnable()
     {
         inputActions.Enable();
@@ -149,6 +216,9 @@ public class DialogueManager : MonoBehaviour
         inputActions.Player.Interact.canceled += Interact;
     }
 
+    /// <summary>
+    /// disables input actions for dialogue
+    /// </summary>
     private void OnDisable()
     {
         inputActions.Disable();
@@ -156,9 +226,17 @@ public class DialogueManager : MonoBehaviour
         inputActions.Player.Interact.canceled -= Interact;
     }
 
+    /// <summary>
+    /// if player press interact button and current text has no choices, continues story
+    /// </summary>
+    /// <param name="context"></param>
     void Interact(InputAction.CallbackContext context)
     {
-        if(context.performed && currentStory.currentChoices.Count == 0)
+        if(context.performed && startDialogue && !isInDialogue)
+        {
+            EnterDialogueMode(dialoguePath);
+        }
+        else if(context.performed && isInDialogue && currentStory.currentChoices.Count == 0)
         {
             ContinueStory();
         }
