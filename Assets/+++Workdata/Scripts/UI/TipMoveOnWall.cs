@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class TipMoveOnWall : MonoBehaviour
 {
+    //spriterenderer component 
     [SerializeField] private SpriteRenderer moveSprite;
 
+    //gameobject for the text
     [SerializeField] private GameObject moveText;
 
+    /// <summary>
+    /// link to the playercontroller script
+    /// </summary>
     private PlayerController player;
 
     private void Awake()

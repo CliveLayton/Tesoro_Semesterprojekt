@@ -50,6 +50,8 @@ public class DialogueManager : MonoBehaviour
     /// </summary>
     private GameInput inputActions;
 
+    public PlayerController playerController;
+
     /// <summary>
     /// bool for player is pressing interact button
     /// </summary>
@@ -111,7 +113,7 @@ public class DialogueManager : MonoBehaviour
         currentStory.ChoosePathString(inkPath);
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
-
+        playerController.inputHandler.ChangeContinueButtonAnim(playerController.isKeyboardInput);
         ContinueStory();
     }
 

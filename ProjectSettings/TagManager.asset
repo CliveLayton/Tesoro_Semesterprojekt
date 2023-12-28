@@ -10,6 +10,7 @@ TagManager:
   - Obstacles
   - DeathZone
   - ClimbingWall
+  - InputHandler
   layers:
   - Default
   - TransparentFX

@@ -115,6 +115,11 @@ public class PlayerController : MonoBehaviour
     public LogicScript logic;
 
     /// <summary>
+    /// link to the inputdevicechangehandler script
+    /// </summary>
+    public InputDeviceChangeHandler inputHandler;
+
+    /// <summary>
     /// link to the PlayerHealth script
     /// </summary>
     public PlayerHealth health;
@@ -177,6 +182,8 @@ public class PlayerController : MonoBehaviour
     /// Input Action for the player movement
     /// </summary>
     private InputAction moveAction;
+
+    private InputAction anyKeyAction;
 
     #endregion
 
@@ -317,8 +324,20 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private bool canGrabLedge = true;
 
-
+    /// <summary>
+    /// bool for player can move or not
+    /// </summary>
     private bool canMove;
+
+    /// <summary>
+    /// bool for checking if currently keyboard is using
+    /// </summary>
+    public bool isKeyboardInput;
+
+    /// <summary>
+    /// bool for allow inputcheck for device check
+    /// </summary>
+    public bool inputCheckAllowed;
 
     /// <summary>
     /// begin position of the player while climb on a ledge
@@ -379,7 +398,6 @@ public class PlayerController : MonoBehaviour
     /// Audio Eventinstance for player sprinting
     /// </summary>
     private EventInstance playerSprint;
-
     #endregion
 
     #region Unity Event Functions
@@ -394,9 +412,12 @@ public class PlayerController : MonoBehaviour
         logic = GameObject.FindGameObjectWithTag("Counter").GetComponent<LogicScript>();
         health = GetComponent<PlayerHealth>();
         deathZone = GameObject.FindGameObjectWithTag("DeathZone").GetComponent<DeathZone>();
+        inputHandler = GameObject.FindGameObjectWithTag("InputHandler").GetComponent<InputDeviceChangeHandler>();
 
         inputActions = new GameInput();
+        isKeyboardInput = true;
         moveAction = inputActions.Player.Move;
+        anyKeyAction = inputActions.Player.AnyKey;
         canMove = true;
         climbWall = true;
         state = State.Figure;
@@ -435,6 +456,10 @@ public class PlayerController : MonoBehaviour
 
         UpdateSound();
 
+        // Check if the mouse moved this frame.
+        IsKeyboardInput();
+
+
         if (DialogueManager.GetInstance().dialogueIsPlaying)
         {
             rb.velocity = new Vector2(0, 0);
@@ -450,9 +475,14 @@ public class PlayerController : MonoBehaviour
 
     //get the moveinput and set the coyotetime counter
     //set the jump power for the blob
+
+
     private void Update()
     {
         moveInput = moveAction.ReadValue<Vector2>();
+
+        inputCheckAllowed = moveInput != Vector2.zero ? true : false;
+
         coyoteTimeCounter = isGrounded ? coyoteTime : coyoteTimeCounter - Time.deltaTime;
     }
 
@@ -496,7 +526,6 @@ public class PlayerController : MonoBehaviour
         playerFootsteps.stop(STOP_MODE.ALLOWFADEOUT);
 
         inputActions.Disable();
-
         inputActions.Player.Sprint.performed -= Run;
         inputActions.Player.Sprint.canceled -= Run;
 
@@ -510,6 +539,8 @@ public class PlayerController : MonoBehaviour
 
         inputActions.Player.Change.performed -= Change;
     }
+
+
 
     #endregion
 
@@ -743,6 +774,37 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetTrigger("BlobCrouchEnd");
             isCrouching = false;
+        }
+    }
+
+    
+    /// <summary>
+    /// Determines if the keyboard is used for moveaction.
+    /// </summary>
+    private void IsKeyboardInput()
+    {
+        // If we give currently no input activeControl is null.
+        if (moveAction.activeControl == null && !inputCheckAllowed)
+        {
+            print("null");
+            return;
+        }
+        print(moveAction.activeControl.device.name);
+        // Check the name of the hardware that gives input to lookAction.
+        // PC Mouse: Mouse
+        // Xbox controller on Windows: XInputControllerWindows
+        // PS4 controller on Windows: DualShock4GamepadHID
+        if(moveAction.activeControl.device.name == "Keyboard" && !isKeyboardInput)
+        {
+            print("Keyboard using");
+            isKeyboardInput = true;
+            inputHandler.SetImageState(isKeyboardInput);
+        }
+        else if(moveAction.activeControl.device.name != "Keyboard" && isKeyboardInput)
+        {
+            print("Gamepad using");
+            isKeyboardInput = false;
+            inputHandler.SetImageState(isKeyboardInput);
         }
     }
 
